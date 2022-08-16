@@ -28,10 +28,17 @@ public class ProductController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping(path = "/products/paged")
+    @GetMapping(path = "/products/active/paged")
     public ResponseEntity<?> listAllActivePaged(@RequestParam(defaultValue = "0") Integer page,
                                                 @RequestParam(defaultValue = "3") Integer size){
         Page<Product> list = productService.getAllActivePaged(page,size);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(path = "/products/paged")
+    public ResponseEntity<?> listAllPaged(@RequestParam(defaultValue = "0") Integer page,
+                                          @RequestParam(defaultValue = "3") Integer size){
+        Page<Product> list = productService.getAllPaged(page,size);
         return ResponseEntity.ok(list);
     }
 

@@ -71,6 +71,12 @@ public class ClientService implements IClientService {
     }
 
     @Override
+    public Page<Client> getAllPaged(Integer page, Integer size) {
+        Pageable paging = PageRequest.of(page, size);
+        return clientRepository.findAll(paging);
+    }
+
+    @Override
     public ResponseDTO delete(Long clientId) {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setProcessed(Boolean.FALSE);

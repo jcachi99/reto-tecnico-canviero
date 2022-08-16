@@ -18,4 +18,6 @@ public interface IProductService {
     ResponseDTO delete(Long productId);
 
     Page<Product> getAllActivePaged(Integer page, Integer size);
+
+    Page<Product> getAllPaged(Integer page, Integer size);
 }

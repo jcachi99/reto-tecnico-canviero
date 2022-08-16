@@ -89,4 +89,10 @@ public class ProductService implements IProductService {
         return productRepository.findAllByActiveIsTrue(paging);
     }
 
+    @Override
+    public Page<Product> getAllPaged(Integer page, Integer size) {
+        Pageable paging = PageRequest.of(page, size);
+        return productRepository.findAll(paging);
+    }
+
 }

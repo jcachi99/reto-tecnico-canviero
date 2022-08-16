@@ -28,10 +28,17 @@ public class ClientController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping(path = "/clients/paged")
+    @GetMapping(path = "/clients/active/paged")
     public ResponseEntity<?> listAllActivePaged(@RequestParam(defaultValue = "0") Integer page,
                                                 @RequestParam(defaultValue = "3") Integer size){
         Page<Client> list = clientService.getAllActivePaged(page,size);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(path = "/clients/paged")
+    public ResponseEntity<?> listAllPaged(@RequestParam(defaultValue = "0") Integer page,
+                                          @RequestParam(defaultValue = "3") Integer size){
+        Page<Client> list = clientService.getAllPaged(page,size);
         return ResponseEntity.ok(list);
     }
 

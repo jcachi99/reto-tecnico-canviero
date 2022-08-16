@@ -16,6 +16,7 @@ public interface IClientService {
     Client update(Client client);
 
     Page<Client> getAllActivePaged(Integer page, Integer size);
+    Page<Client> getAllPaged(Integer page, Integer size);
 
     ResponseDTO delete(Long clientId);
 }
