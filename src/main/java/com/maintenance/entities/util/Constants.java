@@ -12,4 +12,11 @@ public final class Constants {
     public static final String CLIENT_DELETE_FAIL = "Fallo al eliminar al cliente con id {}.";
 
     public static final String CLIENT_DELETE_SUCCESS = "Se eliminó correctamente el cliente con id {}.";
+    public static final String PRODUCT_NOT_FOUND = "Producto con id {} no encontrado.";
+    public static final String PRODUCT_SAVE_FAIL = "Fallo al guardar el producto.";
+    public static final String PRODUCT_UPDATE_FAIL = "Fallo al actualizar la informacion del producto.";
+
+    public static final String PRODUCT_DELETE_FAIL = "Fallo al eliminar al producto con id {}.";
+
+    public static final String PRODUCT_DELETE_SUCCESS = "Se eliminó correctamente el producto con id {}.";
 }
