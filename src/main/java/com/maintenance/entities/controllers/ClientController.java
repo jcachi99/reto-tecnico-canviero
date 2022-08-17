@@ -56,7 +56,7 @@ public class ClientController {
     }
 
     @PostMapping(path = "/delete/{clientId}")
-    public ResponseEntity<?> delete(@PathVariable Long clientId) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable Long clientId){
         clientService.delete(clientId);
         return ResponseEntity.ok(CLIENT_DELETE_SUCCESS.replace(REPLACE,clientId.toString()));
     }
