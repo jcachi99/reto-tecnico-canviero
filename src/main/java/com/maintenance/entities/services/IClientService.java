@@ -1,6 +1,5 @@
 package com.maintenance.entities.services;
 
-import com.maintenance.entities.domain.dtos.ResponseDTO;
 import com.maintenance.entities.domain.entities.Client;
 import org.springframework.data.domain.Page;
 
@@ -13,10 +12,10 @@ public interface IClientService {
 
     Client getById(Long id);
 
-    Client update(Client client);
+    Client update(Long clientId, Client client);
 
     Page<Client> getAllActivePaged(Integer page, Integer size);
     Page<Client> getAllPaged(Integer page, Integer size);
 
-    ResponseDTO delete(Long clientId);
+    void delete(Long clientId);
 }

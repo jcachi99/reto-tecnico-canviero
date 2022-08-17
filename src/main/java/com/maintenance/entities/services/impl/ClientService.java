@@ -1,7 +1,7 @@
 package com.maintenance.entities.services.impl;
 
-import com.maintenance.entities.domain.dtos.ResponseDTO;
 import com.maintenance.entities.domain.entities.Client;
+import com.maintenance.entities.exception.ResourceNotFoundException;
 import com.maintenance.entities.repository.ClientRepository;
 import com.maintenance.entities.services.IClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.maintenance.entities.util.Constants.*;
@@ -30,38 +33,24 @@ public class ClientService implements IClientService {
 
     @Override
     public Client save(Client client) {
-        try {
-            return clientRepository.save(client);
-        }catch (Exception e){
-            log.info(CLIENT_SAVE_FAIL+e.getMessage());
-            return null;
-        }
+        client.setActive(Boolean.TRUE);
+        client.setCreated_at(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        return clientRepository.save(client);
     }
 
     @Override
     public Client getById(Long id) {
-        try {
-            return clientRepository.findById(id).get();
-        }catch (Exception e){
-            log.info(CLIENT_NOT_FOUND+e.getMessage());
-            return null;
-        }
-
+            return clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No se encontró el cliente"));
     }
 
     @Override
-    public Client update(Client client) {
-        try{
-            Client c = this.getById(client.getId());
-            if(c!=null){
-                return clientRepository.save(client);
-            }else{
-                return null;
-            }
-        }catch (Exception e){
-            log.info(CLIENT_UPDATE_FAIL+e.getMessage());
-            return null;
-        }
+    public Client update(Long clientId, Client client) {
+        Client existingClient = clientRepository.findById(clientId).orElseThrow(() -> new ResourceNotFoundException("No se encontró el cliente"));
+        existingClient.setName(client.getName());
+        existingClient.setSex(client.getSex());
+        existingClient.setActive(client.getActive());
+        existingClient.setUpdated_at(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        return clientRepository.save(existingClient);
     }
 
     @Override
@@ -77,22 +66,13 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public ResponseDTO delete(Long clientId) {
-        ResponseDTO responseDTO = new ResponseDTO();
-        responseDTO.setProcessed(Boolean.FALSE);
-        Client client = this.getById(clientId);
-        if(client!=null){
-            try {
-                clientRepository.deleteById(clientId);
-                responseDTO.setProcessed(Boolean.TRUE);
-                responseDTO.setMessage(CLIENT_DELETE_SUCCESS.replace(REPLACE,clientId.toString()));
-            }catch (Exception e){
-                responseDTO.setMessage(CLIENT_DELETE_FAIL.replace(REPLACE,clientId.toString()));
-                log.info(CLIENT_DELETE_FAIL+e.getMessage());
-            }
-        }else{
-            responseDTO.setMessage(CLIENT_NOT_FOUND.replace(REPLACE,clientId.toString()));
+    public void delete(Long clientId) {
+        Client existingClient = clientRepository.findById(clientId).orElseThrow(() -> new ResourceNotFoundException("No se encontró el cliente"));
+        try {
+            clientRepository.delete(existingClient);
+        }catch (Exception e){
+            log.info(CLIENT_DELETE_FAIL+e.getMessage());
+            throw new ExpressionException(clientId.toString(),e.getMessage());
         }
-        return responseDTO;
     }
 }

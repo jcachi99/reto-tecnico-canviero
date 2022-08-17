@@ -3,8 +3,11 @@ package com.maintenance.entities.domain.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -22,6 +25,8 @@ public class Client {
     @Column(name="id")
     private Long id;
 
+    @NotNull(message = "el campo name es obligatorio")
+    @NotEmpty(message = "el campo name no puede ser vacio")
     @Column(name="name")
     private String name;
 
