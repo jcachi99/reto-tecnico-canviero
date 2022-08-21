@@ -53,11 +53,6 @@ public class Client {
     @Column(name="email")
     private String email;
 
-    @NotNull(message = "el campo sex es obligatorio")
-//    @NotEmpty(message = "el campo sex no puede ser vacio")
-    @Column(name="sex")
-    private Character sex;
-
     @Column(name="active")
     private Boolean active;
 

@@ -1,5 +1,6 @@
 package com.maintenance.entities.services;
 
+import com.maintenance.entities.domain.dtos.ResponseLoadFileDTO;
 import com.maintenance.entities.domain.entities.Client;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -23,12 +24,6 @@ public interface IClientService {
 
     void delete(Long clientId);
 
-    void init();
-    void save(MultipartFile multipartFile);
+    ResponseLoadFileDTO loadFile(MultipartFile multipartFile);
 
-    Resource load(String filename);
-    void deleteAll();
-    Stream<Path> loadAll();
-
-    String deleteFile(String filename);
 }

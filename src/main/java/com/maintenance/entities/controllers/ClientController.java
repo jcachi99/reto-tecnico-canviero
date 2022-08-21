@@ -53,8 +53,7 @@ public class ClientController {
 
     @PostMapping("/upload")
     public ResponseEntity<?> save(@RequestBody MultipartFile file){
-        clientService.save(file);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(clientService.loadFile(file));
     }
 
     @PutMapping("/{clientId}")
