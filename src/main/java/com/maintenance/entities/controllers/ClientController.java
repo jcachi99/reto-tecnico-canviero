@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -48,6 +49,12 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid Client client){
         return ResponseEntity.ok(clientService.save(client));
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> save(@RequestBody MultipartFile file){
+        clientService.save(file);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{clientId}")

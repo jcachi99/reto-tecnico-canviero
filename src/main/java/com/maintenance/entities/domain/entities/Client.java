@@ -6,8 +6,10 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Entity
@@ -30,6 +32,29 @@ public class Client {
     @Column(name="name")
     private String name;
 
+    @NotNull(message = "el campo last name es obligatorio")
+    @NotEmpty(message = "el campo last name no puede ser vacio")
+    @Column(name="last_name")
+    private String last_name;
+
+    @NotNull(message = "el campo document es obligatorio")
+    @NotEmpty(message = "el campo document no puede ser vacio")
+    @Column(name="document")
+    private String document;
+
+    @NotNull(message = "el campo phone es obligatorio")
+    @NotEmpty(message = "el campo phone no puede ser vacio")
+    @Column(name="phone")
+    private String phone;
+
+    @NotNull(message = "el campo email es obligatorio")
+    @NotEmpty(message = "el campo email no puede ser vacio")
+    @Email(message = "debe ser un email", regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.com", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Column(name="email")
+    private String email;
+
+    @NotNull(message = "el campo sex es obligatorio")
+//    @NotEmpty(message = "el campo sex no puede ser vacio")
     @Column(name="sex")
     private Character sex;
 
