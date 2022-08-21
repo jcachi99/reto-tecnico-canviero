@@ -3,11 +3,14 @@ create table client
     id         bigint identity
         constraint client_pk
         primary key,
-    name       varchar(200) not null,
-    sex        char         not null,
-    active     bit,
-    created_at datetime,
-    updated_at datetime
+    name       varchar(200)       not null,
+    active     bit      default 1 not null,
+    created_at datetime default getdate(),
+    updated_at datetime,
+    last_name  varchar(500)       not null,
+    document   varchar(8)         not null,
+    phone      varchar(30)        not null,
+    email      varchar(100)       not null
 )
     go
 
