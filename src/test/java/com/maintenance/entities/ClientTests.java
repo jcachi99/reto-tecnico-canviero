@@ -1,5 +1,6 @@
 package com.maintenance.entities;
 
+import static org.junit.jupiter.api.Assertions.*;
 import com.maintenance.entities.domain.entities.Client;
 import com.maintenance.entities.repository.ClientRepository;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,9 @@ public class ClientTests {
     @Test
     @Rollback(value = false)
     public void testSaveClient(){
-        Client client = new Client(10L,"nombre1","ape pate","12356793","999901231","j_bncs@outloook.com",true,"2022-05-21","2022-05-21");
-        clientRepository.save(client);
+        Client client = new Client(10L,"nombre2","ape pate","12356793","999901231","j_bncs@outloook.com",true,"2022-05-21","2022-05-21");
+        Client client1 = clientRepository.save(client);
+
+        assertNotNull(client1);
     }
 }
